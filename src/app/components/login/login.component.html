@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="leftSide">
+
+        <img src="./assets/logo.png" alt="" width="80%">
+
+    </div>
+    <div class="rightSide">
+
+        <div class="formBox">
+            <h2>Acesse sua conta</h2>
+
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Digite seu login</mat-label>
+                <input matInput placeholder="Login">
+              </mat-form-field>
+
+
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Digite sua senha</mat-label>
+                <input matInput placeholder="Senha">
+              </mat-form-field>
+
+
+
+            <button mat-raised-button color="primary" style="background-color: #ac5209;" (click)="logar()">Entrar</button>
+            <span style="margin-top: 10px;">Esqueceu a senha ? <strong class="interactiveText" (click)="abrirPass()">Redefinir senha</strong></span>
+            <span style="margin-top: 10px;">Não possui conta ? <strong class="interactiveText" (click)="abrirCriar()">Criar conta</strong></span>
+        </div>
+
+    </div>
+</div>
