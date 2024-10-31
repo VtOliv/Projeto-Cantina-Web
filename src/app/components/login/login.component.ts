@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -9,33 +11,23 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   constructor(
-    private router: Router
+    private router: Router,
+    private api: ApiService,
+    private snack: MatSnackBar
   ) {}
 
-  value: any;
-  numConta: any;
-  back: any;
-  criar = false;
-  passDialog = false
-  tipo: any;
-  dono: any;
-  pass: any;
-
-  senhaAntiga: any;
-  senhaNova: any;
-  stateOptions: any[] = [
-    { label: 'Conta Corrente', value: 2 },
-    { label: 'Conta Poupança', value: 1 },
-  ];
+  cpf: any
+  senha: any
 
   ngOnInit() {}
 
   abrirCriar() {
-    this.criar = true;
+    console.log(this.cpf);
+    console.log(this.senha);
   }
 
   abrirPass() {
-    this.passDialog = true;
+
   }
 
   abrirHome() {
@@ -43,7 +35,19 @@ export class LoginComponent implements OnInit {
   }
 
   logar() {
-    this.router.navigate(['/home']);
+    this.api.logar(this.cpf, this.senha).subscribe(
+      data => {
+        if(data.loginValido === false){
+          this.snack.open("Login ou senha inválidos", "Fechar" )
+        } else {
+          localStorage.setItem("Nome", data.nomeUsuario)
+
+          setTimeout( () => this.router.navigate(['/home']) , 3000)
+        }
+      }
+    )
+
+
   }
 
   trocarSenha() {

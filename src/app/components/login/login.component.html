@@ -11,20 +11,20 @@
 
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Digite seu login</mat-label>
-                <input matInput placeholder="Login">
+                <input matInput placeholder="Login" [(ngModel)]="cpf" name="cpf">
               </mat-form-field>
 
 
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Digite sua senha</mat-label>
-                <input matInput placeholder="Senha">
+                <input matInput type="password" placeholder="Senha" [(ngModel)]="senha" name="senha">
               </mat-form-field>
 
 
 
             <button mat-raised-button color="primary" style="background-color: #ac5209;" (click)="logar()">Entrar</button>
-            <span style="margin-top: 10px;">Esqueceu a senha ? <strong class="interactiveText" (click)="abrirPass()">Redefinir senha</strong></span>
-            <span style="margin-top: 10px;">Não possui conta ? <strong class="interactiveText" (click)="abrirCriar()">Criar conta</strong></span>
+            <span style="margin-top: 10px;">Esqueceu a senha ? <strong class="interactiveText">Redefinir senha</strong></span>
+            <span style="margin-top: 10px;">Não possui conta ? <strong class="interactiveText">Criar conta</strong></span>
         </div>
 
     </div>
