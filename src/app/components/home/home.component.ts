@@ -97,9 +97,19 @@ export class HomeComponent implements OnInit, OnChanges {
   }
 
   buscarProdutos(){
-    this.produtos = this.produtos.filter((produto: { nomeProduto: string; }) =>
-      produto.nomeProduto.toLowerCase().includes(this.filter.toLowerCase())
-    );
+    var listaOriginal = this.produtos
+
+    if(this.filter == ""){
+      this.produtos = listaOriginal
+    } else {
+      this.produtos = this.produtos.filter((produto: { nomeProduto: string; }) =>
+        produto.nomeProduto.toLowerCase().includes(this.filter.toLowerCase())
+      );
+
+      if(this.produtos.length == 0){
+        this.produtos = listaOriginal
+      }
+    }
 
     // this.api.buscarProdutos('nomeProduto', this.filter).subscribe(
     //   data => {
