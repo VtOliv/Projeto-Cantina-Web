@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   cpf: any
   senha: any
+  nomeUsuario: string = 'Admin'
 
   ngOnInit() {}
 
@@ -35,17 +36,26 @@ export class LoginComponent implements OnInit {
   }
 
   logar() {
-    this.api.logar(this.cpf, this.senha).subscribe(
-      data => {
-        if(data.loginValido === false){
-          this.snack.open("Login ou senha inválidos", "Fechar" )
-        } else {
-          localStorage.setItem("Nome", data.nomeUsuario)
+    if(this.cpf == '12345678911' && this.senha == '12345') {
+      localStorage.setItem("Nome", this.nomeUsuario)
+      setTimeout( () => this.router.navigate(['/home']) , 3000)
 
-          setTimeout( () => this.router.navigate(['/home']) , 3000)
-        }
-      }
-    )
+    } else {
+      this.snack.open("Login ou senha inválidos", "Fechar" )
+    }
+
+
+    // this.api.logar(this.cpf, this.senha).subscribe(
+    //   data => {
+    //     if(data.loginValido === false){
+    //       this.snack.open("Login ou senha inválidos", "Fechar" )
+    //     } else {
+    //       localStorage.setItem("Nome", data.nomeUsuario)
+
+    //       setTimeout( () => this.router.navigate(['/home']) , 3000)
+    //     }
+    //   }
+    // )
 
 
   }
