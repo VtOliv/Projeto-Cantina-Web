@@ -75,6 +75,69 @@ export class HomeComponent implements OnInit, OnChanges {
     }
   ];
 
+  produtosAlt: any = [
+    {
+      "nomeProduto": "Hambúrguer Clássico",
+      "descricaoProduto": "Hambúrguer com carne, queijo e molho especial",
+      "idCategoria": 1,
+      "precoVenda": 15.90
+    },
+    {
+      "nomeProduto": "Cheeseburger",
+      "descricaoProduto": "Hambúrguer com carne, queijo cheddar e molho barbecue",
+      "idCategoria": 1,
+      "precoVenda": 17.50
+    },
+    {
+      "nomeProduto": "Batata Frita",
+      "descricaoProduto": "Batatas fritas crocantes",
+      "idCategoria": 2,
+      "precoVenda": 8.90
+    },
+    {
+      "nomeProduto": "Milkshake de Morango",
+      "descricaoProduto": "Milkshake cremoso de morango",
+      "idCategoria": 3,
+      "precoVenda": 12.50
+    },
+    {
+      "nomeProduto": "Cachorro Quente",
+      "descricaoProduto": "Salsicha no pão com molho de mostarda e ketchup",
+      "idCategoria": 1,
+      "precoVenda": 10.00
+    },
+    {
+      "nomeProduto": "X-Burguer",
+      "descricaoProduto": "Hambúrguer com queijo, alface, tomate e maionese",
+      "idCategoria": 1,
+      "precoVenda": 18.00
+    },
+    {
+      "nomeProduto": "Pizza de Calabresa",
+      "descricaoProduto": "Pizza com calabresa, cebola e azeitonas",
+      "idCategoria": 4,
+      "precoVenda": 25.00
+    },
+    {
+      "nomeProduto": "Suco Natural de Laranja",
+      "descricaoProduto": "Suco fresco de laranja",
+      "idCategoria": 3,
+      "precoVenda": 6.50
+    },
+    {
+      "nomeProduto": "Torrada com Queijo",
+      "descricaoProduto": "Torrada crocante com queijo derretido",
+      "idCategoria": 2,
+      "precoVenda": 7.90
+    },
+    {
+      "nomeProduto": "Hambúrguer Vegano",
+      "descricaoProduto": "Hambúrguer vegetal com alface e tomate",
+      "idCategoria": 1,
+      "precoVenda": 20.00
+    }
+  ];
+  
   filter: any
   field: any
   carrinho: any = []
@@ -94,6 +157,10 @@ export class HomeComponent implements OnInit, OnChanges {
     var result = this.carrinho.map((i: { precoVenda: any; }) => i.precoVenda)
     console.log(result);
     
+  }
+
+  rmvFilter(){
+    this.produtos = this.produtosAlt
   }
 
   buscarProdutos(){

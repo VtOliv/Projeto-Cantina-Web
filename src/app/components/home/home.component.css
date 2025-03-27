@@ -110,3 +110,13 @@ h2 {
   width: 50%;
   height: 30%;
 }
+
+.rmvFilter {
+  margin: 5px;
+  background-color: #ac5209;
+  color: #ffffff;
+  font-size: 15px;
+  width: 20%;
+  height: 4vh;
+  top: -9px
+}
