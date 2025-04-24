@@ -1,70 +1,97 @@
 <div class="fullBody">
+  <!-- Menu lateral -->
+  <div class="leftSide">
+    <img src="./assets/logo.png" width="90%" alt="Logo" />
+    <ul>
+      <li>Listar Produtos</li>
+      <li>Criar Produtos</li>
+      <li>Gerenciar Estoque</li>
+    </ul>
+  </div>
 
-    <div class="leftSide">
-        <img src="./assets/logo.png" width="90%" alt="">
-      <ul>
-        <li>Listar Produtos</li>
-        <li>Criar Produtos</li>
-        <li>Gerenciar Estoque</li>
-      </ul>
-    </div>
-  
-    <div class="container" style="display: flex; flex-direction: column;">
-  
-  
-      <div class="nav">
-        <div class="pesquisa">
+  <!-- Conteúdo principal -->
+  <div class="container">
+    <!-- Barra de pesquisa -->
+    <div class="nav">
+      <div class="pesquisa">
+        <div class="search-group">
           <mat-form-field appearance="outline" class="searchInput">
             <mat-label>Pesquisar produto</mat-label>
-            <input matInput type=text [(ngModel)]="filter" (keyup.enter)="buscarProdutos()">
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="filter"
+              (keyup.enter)="buscarProdutos()"
+            />
             <button mat-icon-button matSuffix (click)="buscarProdutos()">
               <mat-icon>search</mat-icon>
             </button>
           </mat-form-field>
-          <button class="rmvFilter" mat-raised-button (click)="rmvFilter()">Remover filtros</button>
+
+          <button
+            class="rmvFilter"
+            mat-raised-button
+            (click)="rmvFilter()"
+          >
+            Remover filtros
+          </button>
         </div>
       </div>
-      <div class="cardHolder">
-        <div class="cardLoop" *ngFor="let produto of produtos">
-  
-          <mat-card class="example-card">
-            <mat-card-title>{{ produto.nomeProduto }}</mat-card-title>
-            <mat-card-subtitle>{{ produto.descricaoProduto }} - {{ produto.idCategoria }}</mat-card-subtitle>
-            <mat-card-content>
-              <h1>{{ produto.precoVenda.toFixed(2) }}</h1>
-            </mat-card-content>
-            <mat-divider inset></mat-divider>
-            <mat-card-actions>
-              <button mat-button (click)="add(produto)">Comprar</button>
-  
-            </mat-card-actions>
-          </mat-card>
-        </div>
-  
+    </div>
+
+    <!-- Cards de produto -->
+    <div class="cardHolder">
+      <div class="cardLoop" *ngFor="let produto of produtos">
+        <mat-card class="example-card">
+          <mat-card-title>{{ produto.nomeProduto }}</mat-card-title>
+          <mat-card-subtitle>
+            {{ produto.descricaoProduto }} - {{ produto.idCategoria }}
+          </mat-card-subtitle>
+          <mat-card-content>
+            <h1>{{ produto.precoVenda.toFixed(2) }}</h1>
+          </mat-card-content>
+          <mat-divider inset></mat-divider>
+          <mat-card-actions>
+            <button mat-button (click)="add(produto)">Comprar</button>
+          </mat-card-actions>
+        </mat-card>
       </div>
-  
     </div>
   </div>
+</div>
 
-  <div class="items">
-
-    <div class="produtos">
-        <h2>Produtos no carrinho</h2>
-        <mat-chip-list aria-label="Color selection">
-            <mat-chip *ngFor="let produto of carrinho" selected (removed)="remove(produto)">
-              {{produto.nomeProduto}}
-              <button matChipRemove>
-                <mat-icon>cancel</mat-icon>
-              </button>
-            </mat-chip>
-          </mat-chip-list>
-    </div>
-    <mat-divider [vertical]="true"></mat-divider>
-    <div class="total">
-        <h2 class="title" style="align-self: flex-start;">Carrinho</h2>
-        <p class="totalValue">Total : R$ {{total.toFixed(2)}}</p>
-        <button class="buy" mat-raised-button>Finalizar Compra</button>
-    </div>
+<!-- Carrinho fixo -->
+<div
+  class="items"
+  [class.visible-mobile]="carrinhoVisivel"
+  [class.hidden-mobile]="!carrinhoVisivel"
+>
+  <div class="produtos">
+    <h2>Produtos no carrinho</h2>
+    <mat-chip-list>
+      <mat-chip
+        *ngFor="let produto of carrinho"
+        selected
+        (removed)="remove(produto)"
+      >
+        {{ produto.nomeProduto }}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+    </mat-chip-list>
   </div>
 
-  
+  <mat-divider [vertical]="true"></mat-divider>
+
+  <div class="total">
+    <h2>Carrinho</h2>
+    <p class="totalValue">Total: R$ {{ total.toFixed(2) }}</p>
+    <button class="buy" mat-raised-button>Finalizar Compra</button>
+  </div>
+</div>
+
+<!-- Botão flutuante para mobile -->
+<button class="toggle-cart-btn" (click)="toggleCarrinho()">
+  {{ carrinhoVisivel ? 'Fechar Carrinho' : 'Ver Carrinho' }}
+</button>

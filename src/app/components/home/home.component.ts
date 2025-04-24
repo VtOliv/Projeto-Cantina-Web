@@ -142,6 +142,7 @@ export class HomeComponent implements OnInit, OnChanges {
   field: any
   carrinho: any = []
   total: Number = 0.00
+  carrinhoVisivel = false;
 
   ngOnInit(): void {
     // this.api.carregarProdutos(0).subscribe(
@@ -151,6 +152,11 @@ export class HomeComponent implements OnInit, OnChanges {
     //     console.log(data.content);     
     //   }
     // )
+  }
+
+
+  toggleCarrinho() {
+    this.carrinhoVisivel = !this.carrinhoVisivel;
   }
 
   ngOnChanges(): void {
