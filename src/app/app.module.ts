@@ -19,9 +19,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSelectModule} from '@angular/material/select';
+import {MatTableModule} from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { ProductManagementComponent } from './components/product-management/product-management.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AddProductComponent } from './components/product-management/add-product/add-product.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, ProductManagementComponent, AddProductComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -37,7 +44,12 @@ import {MatSelectModule} from '@angular/material/select';
     HttpClientModule,
     FormsModule,
     MatSnackBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

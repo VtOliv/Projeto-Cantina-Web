@@ -16,21 +16,31 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  overflow: hidden;
 }
 
-/* Menu lateral */
+/* Menu lateral fixo */
 .leftSide {
   width: 15%;
   min-width: 200px;
   background: linear-gradient(#ac5209, #291904);
   color: white;
   padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+}
+
+.leftSide img {
+  max-width: 100%;
 }
 
 .leftSide ul {
   list-style: none;
   margin-top: 20px;
+  padding: 0;
 }
 
 .leftSide li {
@@ -40,24 +50,23 @@ body {
   cursor: pointer;
 }
 
-/* Área principal */
+/* Conteúdo principal ao lado do menu */
 .container {
+  margin-left: 15%;
   flex: 1;
-  background-color: lightgray;
-  padding: 20px;
-  padding-bottom: 160px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  padding-bottom: 160px; /* espaço pro carrinho fixo */
+  overflow: hidden;
 }
 
-/* Navbar / Pesquisa */
+/* Barra de pesquisa */
 .nav {
   width: 100%;
   padding: 10px 0;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .pesquisa {
@@ -92,6 +101,7 @@ body {
   justify-content: center;
   white-space: nowrap;
   transition: background-color 0.3s ease;
+  height: auto;
 }
 
 .rmvFilter:hover {
@@ -105,6 +115,8 @@ body {
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .cardLoop {
@@ -154,29 +166,6 @@ body {
   pointer-events: all;
 }
 
-/* Botão flutuante mobile */
-.toggle-cart-btn {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 15;
-  background-color: #ac5209;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 50px;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: background-color 0.3s ease;
-}
-
-.toggle-cart-btn:hover {
-  background-color: #8f3e05;
-}
-
-/* Carrinho - Conteúdo */
 .produtos {
   display: flex;
   flex-direction: column;
@@ -227,7 +216,29 @@ mat-chip {
   background-color: #8f3e05;
 }
 
-/* Angular Material Custom */
+/* Botão flutuante para mobile */
+.toggle-cart-btn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 15;
+  background-color: #ac5209;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+}
+
+.toggle-cart-btn:hover {
+  background-color: #8f3e05;
+}
+
+/* Angular Material overrides */
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   color: #ac5209 !important;
 }
@@ -236,32 +247,30 @@ mat-chip {
   color: #5e2e08 !important;
 }
 
-/* Responsividade */
-@media (max-width: 1024px) {
-  .leftSide {
-    width: 20%;
-  }
-
-  .cardLoop {
-    max-width: 45%;
-  }
-
-  .searchInput {
-    width: 70%;
-  }
-}
-
+/* RESPONSIVIDADE */
 @media (max-width: 768px) {
   .fullBody {
     flex-direction: column;
+    height: auto;
   }
 
   .leftSide {
+    position: static;
     width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .leftSide ul {
+    display: none;
   }
 
   .container {
+    margin: 0;
     width: 100%;
+    height: auto;
   }
 
   .cardLoop {
@@ -282,13 +291,19 @@ mat-chip {
   .items {
     flex-direction: column;
     align-items: flex-start;
+    padding: 10px;
   }
 
-  .total, .produtos {
+  .total,
+  .produtos {
     width: 100%;
   }
 
   .toggle-cart-btn {
     display: block;
+  }
+
+  .leftSide img {
+    width: 100px;
   }
 }

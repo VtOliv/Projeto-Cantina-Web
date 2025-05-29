@@ -1,10 +1,9 @@
 <div class="fullBody">
   <!-- Menu lateral -->
   <div class="leftSide">
-    <img src="./assets/logo.png" width="90%" alt="Logo" />
+    <img src="./assets/logo.png" width="80%" alt="Logo" />
     <ul>
-      <li>Listar Produtos</li>
-      <li>Criar Produtos</li>
+      <li routerLink="/products">Gerenciar Produtos</li>
       <li>Gerenciar Estoque</li>
     </ul>
   </div>
@@ -23,23 +22,32 @@
               [(ngModel)]="filter"
               (keyup.enter)="buscarProdutos()"
             />
-            <button mat-icon-button matSuffix (click)="buscarProdutos()">
+            <!-- Ícone lupa para pesquisar -->
+            <button
+              mat-icon-button
+              matSuffix
+              aria-label="Buscar"
+              (click)="buscarProdutos()"
+            >
               <mat-icon>search</mat-icon>
             </button>
+    
+            <!-- Ícone de remover filtro, aparece apenas se houver texto -->
+            <button
+              *ngIf="filter"
+              mat-icon-button
+              matSuffix
+              aria-label="Remover filtro"
+              (click)="rmvFilter()"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
           </mat-form-field>
-
-          <button
-            class="rmvFilter"
-            mat-raised-button
-            (click)="rmvFilter()"
-          >
-            Remover filtros
-          </button>
         </div>
       </div>
     </div>
 
-    <!-- Cards de produto -->
+    <!-- Cards de produto com rolagem -->
     <div class="cardHolder">
       <div class="cardLoop" *ngFor="let produto of produtos">
         <mat-card class="example-card">

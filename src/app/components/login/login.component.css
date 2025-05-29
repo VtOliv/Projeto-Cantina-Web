@@ -1,86 +1,167 @@
+/* Base Reset */
 * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     font-family: monospace;
     color: #535050;
-}
-
-.container {
+  }
+  
+  body, html {
+    height: 100%;
+    width: 100%;
+  }
+  
+  /* Layout Container */
+  .container {
     display: flex;
+    flex-direction: row;
     width: 100%;
     height: 100vh;
-
-}
-
-h2 {
-    position: relative;
-    top: -65px;
-}
-
-.leftSide {
-    display: flex;
+    overflow: hidden;
+  }
+  
+  /* Lado esquerdo */
+  .leftSide {
     width: 58%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(#ac5209,#291904);
-}
-
-.rightSide {
     display: flex;
-    width: 40%;
-    height: 100%;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(#ac5209, #291904);
+    padding: 20px;
+  }
+  
+  .leftSide img {
+    max-width: 80%;
+    height: auto;
+  }
+  
+  /* Lado direito (formulário) */
+  .rightSide {
+    width: 42%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+  }
+  
+  /* Centraliza verticalmente */
+  .rightSide {
+    display: flex;
     flex-direction: column;
-}
-
-h2, span {
-    color: #925b13;
-}
-
-mat-form-field {
+    justify-content: center;
+  }
+  
+  /* Formulário */
+  .formBox {
     width: 70%;
-}
-
-.formBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border: 2px solid #c47f26;
-    box-shadow: 15px 15px 10px 5px #eb9955,
-        inset 15px 15px 10px 5px #eb9955;
-    border-radius: 0px 120px 0px 120px;
     min-height: 500px;
-    width: 70%;
-}
-
-.loginBtn{
-    margin-top: 5px;
-}
-
-.criar{
+    padding: 30px;
     display: flex;
-    justify-content: space-evenly;
-    margin: 10px;
-    padding: 10px;
-}
-
-.interactiveText {
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #c47f26;
+    box-shadow: 15px 15px 10px 5px #eb9955, inset 15px 15px 10px 5px #eb9955;
+    border-radius: 0px 120px 0px 120px;
+    background-color: white;
+  }
+  
+  h2 {
+    color: #925b13;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  mat-form-field {
+    width: 70%;
+    margin-bottom: 20px;
+  }
+  
+  /* Botão de login */
+  button.loginBtn, button[mat-raised-button] {
+    background-color: #ac5209;
+    color: white;
+    padding: 10px 25px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  button[mat-raised-button]:hover {
+    background-color: #8f3e05;
+  }
+  
+  span {
+    color: #925b13;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .interactiveText {
     padding: 3px;
-}
-
-.interactiveText:hover {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .interactiveText:hover {
     color: #000000;
     background-color: #eb9955;
     box-shadow: 2px 2px 2px 2px lightgray;
     border-radius: 5px;
-}
-
-.interactiveText:active {
-    box-shadow: 1px 1px 1px 1px lightgray; 
-    transform: translateY(4px); 
-}
-
-::ng-deep .mat-form-field-ripple {
+  }
+  
+  .interactiveText:active {
+    box-shadow: 1px 1px 1px 1px lightgray;
+    transform: translateY(4px);
+  }
+  
+  /* Angular Material input underline */
+  ::ng-deep .mat-form-field-ripple {
     background-color: #ac5209 !important;
-}
+  }
+  
+  /* RESPONSIVIDADE */
+  @media (max-width: 992px) {
+    .container {
+      flex-direction: column;
+      height: auto;
+    }
+  
+    .leftSide {
+      width: 100%;
+      height: auto;
+      padding: 30px 20px;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .leftSide img {
+      max-width: 150px;
+    }
+  
+    .rightSide {
+      width: 100%;
+      padding: 30px 20px;
+    }
+  
+    .formBox {
+      width: 90%;
+      min-height: auto;
+      padding: 20px;
+      border-radius: 30px;
+      box-shadow: 8px 8px 10px 2px #eb9955, inset 8px 8px 10px 2px #eb9955;
+    }
+  
+    mat-form-field {
+      width: 100%;
+    }
+  
+    button[mat-raised-button] {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+  
