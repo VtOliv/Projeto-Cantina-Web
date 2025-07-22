@@ -1,27 +1,92 @@
-# CantinaProject
+# Projeto Cantina Web
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.11.
+Interface web para o sistema de gerenciamento de cantina. Este projeto consome a API do [Projeto Cantina Service](https://github.com/VtOliv/Projeto-Cantina-Service) e oferece uma experiência interativa para clientes e operadores.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🔗 Acesso Online
 
-## Code scaffolding
+O sistema está disponível gratuitamente para testes no seguinte endereço:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+**➞ [https://projeto-cantina-web.onrender.com/](https://projeto-cantina-web.onrender.com/)**
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 🪰 Tecnologias Utilizadas
 
-## Running unit tests
+* **Angular 13**
+* **Angular Material**
+* **RxJS**
+* **TypeScript**
+* **HTML/CSS**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## ✨ Funcionalidades
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+* Visualização e filtro de produtos por categoria
+* Exibição de cards com informações de produtos
+* Tabela com produtos e paginação
+* Filtro por nome/descrição
+* Cadastro e gerenciamento de produtos via dialog
+* Interface responsiva com menu lateral
 
-## Further help
+---
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 📁 Estrutura do Projeto
+
+```bash
+src/
+ ├── app/
+ │   ├── components/           # Componentes reutilizáveis (cards, tabelas, dialogs)
+ │   ├── pages/                # Páginas principais (ex: home, gerenciamento)
+ │   ├── services/             # Serviços de comunicação com API
+ │   └── app-routing.module.ts
+ └── assets/                   # Imagens e recursos estáticos
+```
+
+---
+
+## 🚀 Como Executar Localmente
+
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/VtOliv/Projeto-Cantina-Web.git
+cd Projeto-Cantina-Web
+```
+
+### 2. Instalar dependências
+
+```bash
+npm install
+```
+
+### 3. Rodar o projeto
+
+```bash
+ng serve
+```
+
+Acesse em `http://localhost:4200/`
+
+---
+
+## ⚙️ Configuração de API
+
+Certifique-se de que a API [Projeto Cantina Service](https://github.com/VtOliv/Projeto-Cantina-Service) esteja rodando localmente ou atualize as URLs nos serviços para apontar para o endpoint correto.
+
+---
+
+## 📞 Contato
+
+Desenvolvido por **Vitor Oliveira**
+
+* [LinkedIn](https://www.linkedin.com/in/vtoliv/)
+* [GitHub](https://github.com/VtOliv)
+
+---
+
+## 📄 Licença
+
+Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
