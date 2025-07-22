@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
+import { ApiService } from 'src/app/services/api.service';
 import { AddProductComponent } from './add-product/add-product.component';
 
 export interface Produto {
@@ -17,115 +17,71 @@ export interface Produto {
   templateUrl: './product-management.component.html',
   styleUrls: ['./product-management.component.css']
 })
-
-export class ProductManagementComponent implements OnInit {
+export class ProductManagementComponent implements OnInit, AfterViewInit {
   colunasExibidas: string[] = ['nomeProduto', 'descricaoProduto', 'idCategoria', 'precoVenda', 'acoes'];
-  dataSource!: MatTableDataSource<Produto>;
-  menuAberto = false;
-
-  produtos: Produto[] = [
-    {
-      "nomeProduto": "Hambúrguer Clássico",
-      "descricaoProduto": "Hambúrguer com carne, queijo e molho especial",
-      "idCategoria": 1,
-      "precoVenda": 15.90
-    },
-    {
-      "nomeProduto": "Cheeseburger",
-      "descricaoProduto": "Hambúrguer com carne, queijo cheddar e molho barbecue",
-      "idCategoria": 1,
-      "precoVenda": 17.50
-    },
-    {
-      "nomeProduto": "Batata Frita",
-      "descricaoProduto": "Batatas fritas crocantes",
-      "idCategoria": 2,
-      "precoVenda": 8.90
-    },
-    {
-      "nomeProduto": "Milkshake de Morango",
-      "descricaoProduto": "Milkshake cremoso de morango",
-      "idCategoria": 3,
-      "precoVenda": 12.50
-    },
-    {
-      "nomeProduto": "Cachorro Quente",
-      "descricaoProduto": "Salsicha no pão com molho de mostarda e ketchup",
-      "idCategoria": 1,
-      "precoVenda": 10.00
-    },
-    {
-      "nomeProduto": "X-Burguer",
-      "descricaoProduto": "Hambúrguer com queijo, alface, tomate e maionese",
-      "idCategoria": 1,
-      "precoVenda": 18.00
-    },
-    {
-      "nomeProduto": "Pizza de Calabresa",
-      "descricaoProduto": "Pizza com calabresa, cebola e azeitonas",
-      "idCategoria": 4,
-      "precoVenda": 25.00
-    },
-    {
-      "nomeProduto": "Suco Natural de Laranja",
-      "descricaoProduto": "Suco fresco de laranja",
-      "idCategoria": 3,
-      "precoVenda": 6.50
-    },
-    {
-      "nomeProduto": "Torrada com Queijo",
-      "descricaoProduto": "Torrada crocante com queijo derretido",
-      "idCategoria": 2,
-      "precoVenda": 7.90
-    },
-    {
-      "nomeProduto": "Hambúrguer Vegano",
-      "descricaoProduto": "Hambúrguer vegetal com alface e tomate",
-      "idCategoria": 1,
-      "precoVenda": 20.00
-    }
-  ];
+  produtos: Produto[] = [];
+  totalItens = 0;
+  itensPorPagina = 5;
+  paginaAtual = 0;
+  filtro = '';
+  menuAberto = false
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private api: ApiService) {}
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.produtos);
+    this.carregarProdutos();
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.sort.sortChange.subscribe(() => {
+      this.paginaAtual = 0;
+      this.paginator.pageIndex = 0;
+      this.carregarProdutos();
+    });
   }
 
-  aplicarFiltro(event: Event) {
-    const valor = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = valor.trim().toLowerCase();
-    if (this.dataSource.paginator) this.dataSource.paginator.firstPage();
+  carregarProdutos(): void {
+    this.api.carregarProdutosTable(this.paginaAtual, this.itensPorPagina, this.filtro).subscribe((response: any) => {
+      this.produtos = response.content;
+      this.totalItens = response.totalElements;
+    });
   }
 
-  abrirDialog() {
+  aoMudarPagina(event: PageEvent): void {
+    this.itensPorPagina = event.pageSize;
+    this.paginaAtual = event.pageIndex;
+    this.carregarProdutos();
+  }
+
+  aplicarFiltro(event: Event): void {
+    const valor = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.filtro = valor;
+    this.paginaAtual = 0;
+    this.paginator.pageIndex = 0;
+    this.carregarProdutos();
+  }
+
+  abrirDialog(): void {
     const dialogRef = this.dialog.open(AddProductComponent, {
       width: '400px'
     });
 
     dialogRef.afterClosed().subscribe((resultado: Produto | undefined) => {
-      if (resultado) {
-        this.dataSource.data = [...this.dataSource.data, resultado];
-      }
+      if (resultado) this.carregarProdutos();
     });
   }
 
-  editarProduto(produto: Produto) {
+  editarProduto(produto: Produto): void {
     alert(`Editar produto: ${produto.nomeProduto}`);
   }
 
-  excluirProduto(produto: Produto) {
+  excluirProduto(produto: Produto): void {
     const confirmacao = confirm(`Deseja excluir o produto "${produto.nomeProduto}"?`);
     if (confirmacao) {
-      this.dataSource.data = this.dataSource.data.filter(p => p !== produto);
+      alert("Apagado")
     }
   }
 }

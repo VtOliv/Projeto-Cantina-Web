@@ -16,30 +16,11 @@
         <div class="search-group">
           <mat-form-field appearance="outline" class="searchInput">
             <mat-label>Pesquisar produto</mat-label>
-            <input
-              matInput
-              type="text"
-              [(ngModel)]="filter"
-              (keyup.enter)="buscarProdutos()"
-            />
-            <!-- Ícone lupa para pesquisar -->
-            <button
-              mat-icon-button
-              matSuffix
-              aria-label="Buscar"
-              (click)="buscarProdutos()"
-            >
+            <input matInput type="text" [(ngModel)]="filter" (keyup.enter)="buscarProdutos()" />
+            <button mat-icon-button matSuffix aria-label="Buscar" (click)="buscarProdutos()">
               <mat-icon>search</mat-icon>
             </button>
-    
-            <!-- Ícone de remover filtro, aparece apenas se houver texto -->
-            <button
-              *ngIf="filter"
-              mat-icon-button
-              matSuffix
-              aria-label="Remover filtro"
-              (click)="rmvFilter()"
-            >
+            <button *ngIf="filter" mat-icon-button matSuffix aria-label="Remover filtro" (click)="rmvFilter()">
               <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>
@@ -47,41 +28,39 @@
       </div>
     </div>
 
-    <!-- Cards de produto com rolagem -->
-    <div class="cardHolder">
-      <div class="cardLoop" *ngFor="let produto of produtos">
-        <mat-card class="example-card">
-          <mat-card-title>{{ produto.nomeProduto }}</mat-card-title>
-          <mat-card-subtitle>
-            {{ produto.descricaoProduto }} - {{ produto.idCategoria }}
-          </mat-card-subtitle>
-          <mat-card-content>
-            <h1>{{ produto.precoVenda.toFixed(2) }}</h1>
-          </mat-card-content>
-          <mat-divider inset></mat-divider>
-          <mat-card-actions>
-            <button mat-button (click)="add(produto)">Comprar</button>
-          </mat-card-actions>
-        </mat-card>
+    <!-- Categorias agrupadas horizontalmente -->
+    <div class="categoria-bar">
+      <div class="categoria-card" *ngFor="let categoria of categorias" (click)="selecionarCategoria(categoria.idCategoria)">
+        <div class="categoria-imagem-wrapper">
+          <img [src]="categoria.imagemCategoria" alt="{{ categoria.nomeCategoria }}">
+        </div>
+        <div class="categoria-titulo">{{ categoria.nomeCategoria }}</div>
       </div>
+    </div>
+
+    <hr>
+
+    <!-- Produtos da categoria -->
+    <div class="produto-container">
+      <mat-card *ngFor="let produto of produtosSelecionados" class="produto-card" (click)="add(produto)">
+        <mat-card-header>
+          <mat-card-title>{{ produto.nomeProduto }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ produto.descricaoProduto }}</p>
+          <p><strong>R$ {{ produto.precoVenda | number:'1.2-2' }}</strong></p>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>
 
-<!-- Carrinho fixo -->
-<div
-  class="items"
-  [class.visible-mobile]="carrinhoVisivel"
-  [class.hidden-mobile]="!carrinhoVisivel"
->
+<!-- Carrinho -->
+<div class="items" [class.visible-mobile]="carrinhoVisivel" [class.hidden-mobile]="!carrinhoVisivel">
   <div class="produtos">
     <h2>Produtos no carrinho</h2>
     <mat-chip-list>
-      <mat-chip
-        *ngFor="let produto of carrinho"
-        selected
-        (removed)="remove(produto)"
-      >
+      <mat-chip *ngFor="let produto of carrinho" selected (removed)="remove(produto)">
         {{ produto.nomeProduto }}
         <button matChipRemove>
           <mat-icon>cancel</mat-icon>
@@ -99,7 +78,6 @@
   </div>
 </div>
 
-<!-- Botão flutuante para mobile -->
-<button class="toggle-cart-btn" (click)="toggleCarrinho()">
+<button class="toggle-cart-btn" matBadge="{{itensCount}}" matBadgeColor="warn"  (click)="toggleCarrinho()">
   {{ carrinhoVisivel ? 'Fechar Carrinho' : 'Ver Carrinho' }}
 </button>
